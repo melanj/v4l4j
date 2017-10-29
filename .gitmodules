@@ -1,0 +1,3 @@
+[submodule "libvideo"]
+	path = libvideo
+	url = https://github.com/melanj/libvideo

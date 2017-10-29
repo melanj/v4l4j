@@ -1,0 +1,67 @@
+Index: build.properties
+===================================================================
+--- build.properties	(revision 507)
++++ build.properties	(working copy)
+@@ -17,7 +17,7 @@
+ platform.standard.icons.location=/usr/share/pixmaps
+ 
+ #java compatibility
+-source=1.6
++source=1.9
+ #JUNIT test
+ test.class.name.single=au.edu.jcu.v4l4j.test.FrameGrabberTest
+ 
+Index: src/au/edu/jcu/v4l4j/Control.java
+===================================================================
+--- src/au/edu/jcu/v4l4j/Control.java	(revision 507)
++++ src/au/edu/jcu/v4l4j/Control.java	(working copy)
+@@ -577,7 +577,7 @@
+ 		state.get();
+ 		Vector<Integer> v = new Vector<Integer>();
+ 		for(int i: values)
+-			v.add(new Integer(i));
++			v.add(Integer.valueOf(i));
+ 		state.put();
+ 		return v;
+ 			
+Index: src/au/edu/jcu/v4l4j/InputInfo.java
+===================================================================
+--- src/au/edu/jcu/v4l4j/InputInfo.java	(revision 507)
++++ src/au/edu/jcu/v4l4j/InputInfo.java	(working copy)
+@@ -83,7 +83,7 @@
+ 		tuner = tun;
+ 		supportedStandards = new HashSet<Integer>();
+ 		for(int s: stds)
+-			supportedStandards.add(new Integer(s));
++			supportedStandards.add(Integer.valueOf(s));
+ 		type = t;
+ 		name = n;
+ 		index = id;
+Index: src/au/edu/jcu/v4l4j/examples/videoViewer/AbstractVideoViewer.java
+===================================================================
+--- src/au/edu/jcu/v4l4j/examples/videoViewer/AbstractVideoViewer.java	(revision 507)
++++ src/au/edu/jcu/v4l4j/examples/videoViewer/AbstractVideoViewer.java	(working copy)
+@@ -394,10 +394,10 @@
+     		tinfo = vd.getDeviceInfo().getInputs()
+     		.get(fg.getChannel()).getTunerInfo();
+     		freqSpinner.setModel(new SpinnerNumberModel(
+-    				new Double(tuner.getFrequency()), 
+-    				new Double(tinfo.getRangeLow()),
+-    				new Double(tinfo.getRangeHigh()),
+-    				new Double(1)));
++    				Double.valueOf(tuner.getFrequency()), 
++    				Double.valueOf(tinfo.getRangeLow()),
++    				Double.valueOf(tinfo.getRangeHigh()),
++    				Double.valueOf(1)));
+     		freq.setVisible(true);
+     		freqSpinner.setVisible(true);
+     	} catch (V4L4JException nte){}//No tuner for input
+@@ -663,7 +663,7 @@
+ 
+ 		public LongControl(Control c) {
+ 			super(c);
+-			spinner = new JSpinner(new SpinnerNumberModel(new Long(0), Long.valueOf(Long.MIN_VALUE), Long.valueOf(Long.MAX_VALUE), new Long(1)));
++			spinner = new JSpinner(new SpinnerNumberModel(Long.valueOf(0), Long.valueOf(Long.MIN_VALUE), Long.valueOf(Long.MAX_VALUE), Long.valueOf(1)));
+ 			spinner.addChangeListener(this);
+ 			contentPanel.add(spinner);
+ 		}
